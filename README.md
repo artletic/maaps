@@ -3,6 +3,8 @@ maaps
 
 Example Usage:
 
+<script>
+
 // These Are a few examples of styling options, created as a variable and passed into the map at the point of creation along with the map_parameters.
 
 var styles = [
@@ -72,3 +74,5 @@ var created_map = maaps.create(map_parameters, function(map_id){
 	maaps.add_marker(marker);
 
 }); // ending of the maaps.create reference.
+
+</script>
