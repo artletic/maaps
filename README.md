@@ -5,6 +5,7 @@ Example Usage:
 
 
 ### Styling
+You can either go fully custom and define things yourself, or pull styles from other sources. [Snazzy Maps](http://snazzymaps.com/) is a great place to look. Note that you'll only need to grab the Javascript style array, not the Create a map code.
 
 ```
 // These Are a few examples of styling options, created as a variable and passed into the map at the point of creation along with the map_parameters.
