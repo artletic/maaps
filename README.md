@@ -4,6 +4,9 @@ maaps
 Example Usage:
 
 
+### Styling
+
+```
 // These Are a few examples of styling options, created as a variable and passed into the map at the point of creation along with the map_parameters.
 
 var styles = [
@@ -27,7 +30,11 @@ var styles = [
     ]
   }
 ];
+```
 
+### Options
+
+```
 // Here are some of the standard options that maaps uses to create your map.
 // Note that styles is a reference to the previously created styles parameters above.
 
@@ -44,11 +51,14 @@ var map_parameters = {
 	"scaleControl": false,
 	"scrollwheel": false,
 }
+```
 
-// This is an example of how the maaps call actually works.
-// maaps.create issues parameters to the script and returns the id of the map for further use.
-// This is important because if you call the map and then immediately add a marker, for example, there's no way to tell it what map needs the new marker, or whether or not the map exists yet.
+This is an example of how the maaps call actually works.
+`maaps.create` issues parameters to the script and returns the id of the map for further use.
 
+This is important because if you call the map and then immediately add a marker, for example, there's no way to tell it what map needs the new marker, or whether or not the map exists yet.
+
+```
 var created_map = maaps.create(map_parameters, function(map_id){
 	
 	// At this point, the map has been created and the id returned as the variable map_id
@@ -69,7 +79,7 @@ var created_map = maaps.create(map_parameters, function(map_id){
 	}
 	
 	// This call actually adds the marker to the map.
-	
 	maaps.add_marker(marker);
 
 }); // ending of the maaps.create reference.
+```
