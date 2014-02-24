@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Maaps : Demo</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="_css/reset.css" type="text/css" />
+	<link rel="stylesheet" href="_css/screen.css" type="text/css" />
+</head>
+<body>
+	<div id="info">
+		<div id="logo">
+			<a href="http://labs.artletic.com/maaps">Maaps</a>
+		</div>
+		<h1>Google maps, but easier</h1>
+		<p><strong>1:</strong> Just before the end of the body tag, you'll want to reference the Google maps script and Maaps.</p>
+		<code class="language-javascript"><pre>&lt;script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"&gt;&lt;/script&gt;
+&lt;script src="_js/maaps.js"&gt;&lt;/script&gt;</pre></code> 
+		<p><strong>2:</strong>After the document is ready, call Maaps with the options you want.</p>
+		<code class="language-javascript"><pre>
+// We're using jQuery to load Maaps after the document is ready, but you can use another method, if you pref.
+$(document).ready(function(){
+			
+	// These are the map styles. You can write any valid Google Maps styles you want, or, grab something from  Snazzy Maps: http://snazzymaps.com/
+	var styles = [
+	    {
+	        "featureType": "water",
+	        "stylers": [
+	            {
+	                "visibility": "on"
+	            },
+	            {
+	                "color": "#acbcc9"
+	            }
+	        ]
+	    },
+	    {
+	        "featureType": "landscape",
+	        "stylers": [
+	            {
+	                "color": "#f2e5d4"
+	            }
+	        ]
+	    },
+	    {
+	        "featureType": "road.highway",
+	        "elementType": "geometry",
+	        "stylers": [
+	            {
+	                "color": "#c5c6c6"
+	            }
+	        ]
+	    },
+	    {
+	        "featureType": "road.arterial",
+	        "elementType": "geometry",
+	        "stylers": [
+	            {
+	                "color": "#e4d7c6"
+	            }
+	        ]
+	    },
+	    {
+	        "featureType": "road.local",
+	        "elementType": "geometry",
+	        "stylers": [
+	            {
+	                "color": "#fbfaf7"
+	            }
+	        ]
+	    },
+	    {
+	        "featureType": "poi.park",
+	        "elementType": "geometry",
+	        "stylers": [
+	            {
+	                "color": "#c5dac6"
+	            }
+	        ]
+	    },
+	    {
+	        "featureType": "administrative",
+	        "stylers": [
+	            {
+	                "visibility": "on"
+	            },
+	            {
+	                "lightness": 33
+	            }
+	        ]
+	    },
+	    {
+	        "featureType": "road"
+	    },
+	    {
+	        "featureType": "poi.park",
+	        "elementType": "labels",
+	        "stylers": [
+	            {
+	                "visibility": "on"
+	            },
+	            {
+	                "lightness": 20
+	            }
+	        ]
+	    },
+	    {},
+	    {
+	        "featureType": "road",
+	        "stylers": [
+	            {
+	                "lightness": 20
+	            }
+	        ]
+	    }
+	];
+	
+	// Here are some of the standard options that maaps uses to create your map.
+	// Note that styles is a reference to the previously created styles parameters above.
+	var map_parameters = {
+		"address" : "3316 Tejon St. Unit #106  Denver, CO 80211",
+		"wrapper" : "map",
+		"service" : "google",
+		"zoom" : 16,
+		"map_id" : "map",
+		"map_name" : "Artletic",
+		"center_latitude" : "39.763533",
+		"center_longitude" : "-105.010884",
+		"styles" : styles,
+		"scaleControl": false,
+		"scrollwheel": false,
+	}
+	
+	// This is an example of how the maaps call actually works.
+	// `maaps.create` issues parameters to the script and returns the id of the map for further use.
+	// This is important because if you call the map and then immediately add a marker, for example, there's no way to tell it what map needs the new marker, or whether or not the map exists yet.
+	
+	var created_map = maaps.create(map_parameters, function(created_map){
+		
+		// Here, we're going to create a marker and create a popup for when it's clicked.
+		// This first bit creates the content for the popup.
+		var content_string = '&lt;div id="bodyContent" class="info_window_content"&gt;'+'&lt;p&gt;&lt;a href="https://www.google.com/maps/preview#!q=3316+Tejon+St.+Unit+%23106++Denver%2C+CO+80211&data=!4m15!2m14!1m13!1s0x876c7892efabbee7%3A0x3d887cbadc47b30c!3m8!1m3!1d286661!2d-92.3379275!3d34.724005!3m2!1i1547!2i1049!4f13.1!4m2!3d39.7635328!4d-105.0108845"&gt; Stop by and see us at our&nbsp;Highland&nbsp;office.&lt;/a&gt;&lt;/div&gt;'+'&lt;/div&gt;';
+		
+		// These are the parameters for the new marker, it has things like the id of the map we're targeting, the overlay/popup content, and the latitude and longitude of the marker and popup.
+		var marker = {
+			"map_id" : created_map,
+			"overlay_content" : content_string,
+			"longitude" : "-105.010884", 
+			"latitude" : "39.763533"
+		}
+		
+		// This call actually adds the marker to the map.
+		maaps.add_marker(marker);
+	});
+});</pre></code>
+		<p>An <a href="http://artletic.com">Artletic</a> project.</p>
+	</div>
+	<div id="map_wrapper">
+		<div id="map"></div>
+	</div>
+	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+	<script src="_js/maaps.js"></script>
+	<script src="_js/prism.js"></script>
+	<script>
+		$(document).ready(function(){
+			var styles = [
+			    {
+			        "featureType": "water",
+			        "stylers": [
+			            {
+			                "visibility": "on"
+			            },
+			            {
+			                "color": "#acbcc9"
+			            }
+			        ]
+			    },
+			    {
+			        "featureType": "landscape",
+			        "stylers": [
+			            {
+			                "color": "#f2e5d4"
+			            }
+			        ]
+			    },
+			    {
+			        "featureType": "road.highway",
+			        "elementType": "geometry",
+			        "stylers": [
+			            {
+			                "color": "#c5c6c6"
+			            }
+			        ]
+			    },
+			    {
+			        "featureType": "road.arterial",
+			        "elementType": "geometry",
+			        "stylers": [
+			            {
+			                "color": "#e4d7c6"
+			            }
+			        ]
+			    },
+			    {
+			        "featureType": "road.local",
+			        "elementType": "geometry",
+			        "stylers": [
+			            {
+			                "color": "#fbfaf7"
+			            }
+			        ]
+			    },
+			    {
+			        "featureType": "poi.park",
+			        "elementType": "geometry",
+			        "stylers": [
+			            {
+			                "color": "#c5dac6"
+			            }
+			        ]
+			    },
+			    {
+			        "featureType": "administrative",
+			        "stylers": [
+			            {
+			                "visibility": "on"
+			            },
+			            {
+			                "lightness": 33
+			            }
+			        ]
+			    },
+			    {
+			        "featureType": "road"
+			    },
+			    {
+			        "featureType": "poi.park",
+			        "elementType": "labels",
+			        "stylers": [
+			            {
+			                "visibility": "on"
+			            },
+			            {
+			                "lightness": 20
+			            }
+			        ]
+			    },
+			    {},
+			    {
+			        "featureType": "road",
+			        "stylers": [
+			            {
+			                "lightness": 20
+			            }
+			        ]
+			    }
+			];
+			var map_parameters = {
+				"address" : "3316 Tejon St. Unit #106  Denver, CO 80211",
+				"wrapper" : "map",
+				"service" : "google",
+				"zoom" : 16,
+				"map_id" : "map",
+				"map_name" : "Artletic",
+				"center_latitude" : "39.763533",
+				"center_longitude" : "-105.010884",
+				"styles" : styles,
+				"scaleControl": false,
+				"scrollwheel": false,
+			}
+			
+			var created_map = maaps.create(map_parameters, function(created_map){
+				
+				var content_string = '<div id="bodyContent" class="info_window_content">'+
+				    '<p><a href="https://www.google.com/maps/preview#!q=3316+Tejon+St.+Unit+%23106++Denver%2C+CO+80211&data=!4m15!2m14!1m13!1s0x876c7892efabbee7%3A0x3d887cbadc47b30c!3m8!1m3!1d286661!2d-92.3379275!3d34.724005!3m2!1i1547!2i1049!4f13.1!4m2!3d39.7635328!4d-105.0108845"> Stop by and see us at our&nbsp;Highland&nbsp;office.</a></div>'+
+				    '</div>';
+				
+				var marker = {
+					"map_id" : created_map,
+					"overlay_content" : content_string,
+					"longitude" : "-105.010884", 
+					"latitude" : "39.763533"
+				}
+				
+				maaps.add_marker(marker);
+			});
+		});
+	</script>
+</body>
+</html>
