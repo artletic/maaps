@@ -3,7 +3,6 @@ maaps
 
 A simpler way to create Google Maps on your site.
 
-
 Example Usage:
 
 
